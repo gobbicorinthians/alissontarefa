@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Review de Filme</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        input, select {
+            display: block;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        input[type="radio"] {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cadastro de Review de Filme</h1>
+
+    <form id="formulario">
+        <label for="nome">Nome do filme:</label>
+        <input type="text" id="nome" required>
+
+        <label for="genero">Gênero:</label>
+        <select name="genero" id="genero" required>
+            <option value="Ação">Ação</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Terror">Terror</option>
+            <option value="Drama">Drama</option>
+            <option value="Animação">Animação</option>
+        </select>
+
+        <label for="nota">Nota de Avaliação (0 a 10):</label>
+        <input type="number" id="nota" min="0" max="10" step="0.1" required>
+
+        <h2>Assistiria novamente?</h2>
+
+        <input type="radio" id="sim" name="assistiria_novamente" value="Sim" required>
+        <label for="sim">Sim</label><br>
+        <input type="radio" id="nao" name="assistiria_novamente" value="Não">
+        <label for="nao">Não</label><br>
+
+        <button type="submit">Cadastrar Review</button>
+    </form>
+
+    <h2>Filmes Cadastrados</h2>
+
+    <ol id="listaFilmes"></ol>
+
+    <script>
+  
+        let filmes = [];
+
+        const formulario = document.getElementById("formulario");
+        const lista = document.getElementById("listaFilmes");
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+    
+            let nome = document.getElementById("nome").value;
+            let genero = document.getElementById("genero").value;
+            let nota = document.getElementById("nota").value;
+            let assistiria = document.querySelector('input[name="assistiria_novamente"]:checked').value;
+
+
+            let review = {
+                nome: nome,
+                genero: genero,
+                nota: nota,
+                assistiriaNovamente: assistiria
+            };
+
+            filmes.push(review);
+
+            let item = document.createElement("li");
+            item.textContent = `${nome} (${genero}) - Nota: ${nota}/10 - Assistiria novamente: ${assistiria}`;
+
+            lista.appendChild(item);
+
+            console.log(filmes);
+
+            formulario.reset();
+        });
+    </script>
+
+</body>
+</html>
